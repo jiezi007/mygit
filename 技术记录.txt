@@ -1,0 +1,208 @@
+20180707
+
+1.
+
+巨额来电
+心花路放
+
+
+20180725
+
+记录：getlab 安装使用
+https://blog.csdn.net/justlpf/article/details/80681332
+
+
+https://blog.csdn.net/zdx1515888659/article/details/72954000/ Git教程
+
+
+https://blog.csdn.net/mengdc/article/details/76566049  Windows下git安装使用教程
+
+
+https://www.cnblogs.com/hsz-csy/p/9183336.html  Idea用maven给springboot打jar包
+
+http://www.cnblogs.com/hsz-csy/p/9183946.html  win10安装docker并结合Idea2018.1部署springboot项目
+
+
+
+
+
+
+
+
+springboot相关
+
+https://blog.csdn.net/liboyang71/article/details/73459909   java 搭建基于springboot的ssm(spring + springmvc + mybatis)的maven项目
+
+1.记录 springboot mapper注解
+在对应的mapper类中加上 @Mapper 注解     //声明是一个Mapper, 与springbootApplication中的@MapperScan二选一写上即可
+@MapperScan("com.example.demo.dao")//与dao层的@Mapper二选一写上即可(主要作用是扫包)
+
+
+2.我们一般基于mybatis都是将sql写到xml配置文件中。现在我们来添加映射，  创建对应的mapper映射， mapper.xml文件写完了，一般是在resources/mapper文件夹下
+
+重点重点，不要跑项目。需要配置在application.yml中。
+#Mybatis扫描
+mybatis.mapper-locations=classpath*:mapper/*.xml
+#起别名。可省略写mybatis的xml中的resultType的全路径
+mybatis.type-aliases-package=com.example.demo.domain
+
+
+
+面试相关
+
+https://blog.csdn.net/gupaoxueyuan/article/details/78805221   大公司面试相关
+
+https://blog.csdn.net/weixin_39702946/article/details/80038451
+
+
+
+
+https://blog.csdn.net/stubbornness1219/article/details/52178516
+
+
+
+20180726
+
+https://blog.csdn.net/zekeTao/article/details/79413919  SpringBoot+Maven 多模块项目的构建、运行、打包
+
+
+https://blog.csdn.net/message_lx/article/details/54171271   异步调用  SpringBoot中使用@Async实现异步调用 
+
+
+https://blog.csdn.net/u013456370/article/details/79411952   Spring Boot 定时任务单线程和多线程
+
+
+
+docker入门
+https://blog.csphere.cn/archives/22  一小时Docker教程
+
+https://blog.csdn.net/21cnbao/article/details/56275456 宋宝华：Docker 最初的2小时(Docker从入门到入门)
+https://blog.csdn.net/S_gy_Zetrov/article/details/78161154  docker 入门
+
+image镜像：一个是镜像（Image），镜像是静态的、可以被用户互相分享的文件。
+
+提示：Docker镜像运行之后会成为Docker容器----通过 docker run命令
+
+还有一个，是容器（Container），前面说过，镜像是静态不可操作的，只能被分享和下载，那什么是能被操作的呢？就是容器里！容器可以理解为镜像的动态状态，也就是我们虚拟机中系统装好后的状态，其实这么说是不对的，容器最符合的描述应该是Linux的iso文件的Live CD模式，比如我们玩双系统时都进入过Live CD模式，不安装系统而直接进入系统，很神奇是吧，Docker的容器就是这个概念，只不过更加轻量更加迅速便捷。但是Live CD的害处就是你关机后作出的修改安装的软件全部gg，容器也是一样，一旦被直接推出，之前安装的gcc啊vim啊啥的就会全部gg掉。如果要保存修改，就需要将当前容器封装成一个新的镜像，这样下次启动这个新的镜像后之前作出的修改还都在。
+
+最后，是仓库（Repository）。各位在前面看到我写的pull和push什么的，有没有晕？不知道各位对于git熟悉不熟悉，Docker中的仓库很像git的代码仓库，你可以pull自己之前push到自己仓库的镜像到本地，也可以pull别人push到公共仓库的镜像到自己本地。说白了就是百度云盘，你可以上传（push）自己做好环境的Docker上去，也可以下载（pull）自己云端的镜像到本地。同时，我们知道百度云最大的特点就是分享（你懂的嘿嘿嘿），类比Docker，如果你得到百度云分享链接（别人的镜像名字、标签和别人的用户名），你还可以下载（pull）别人分享的镜像到自己的本地，别人也可以下载（pull）你的镜像，因为Docker仓库都是公共的。当然，每个免费用户有一个名额把自己的一个镜像设为私有，也就是禁止被分享给别人，类比百度云上你自己保存的而没有被生成分享链接的小姐姐。
+
+
+搜索ubuntu的Docker镜像docker search ubuntu
+~$ docker search ubuntu
+～$ docker pull ubuntu:latest   ~$ docker pull chug/ubuntu14.04x64
+～$ docker images
+～$ docker run -it chug/ubuntu14.04x64 /bin/bash
+我们需要在客户端电脑上面创建一个Dockerfile文件（该文件用于描述image），以实现在现有的Ubuntu 14.04上面做增量的目的。
+# ubuntu 14.04 with vim and gcc
+FROM ubuntu:14.04
+MAINTAINER Barry Song<21cnbao@gmail.com>
+RUN apt-get update && apt-getinstall –y vim gcc
+
+RUN 指令的含义是在指定在源image内执行一条命令，本例更新APT 缓存，并且安装vim和 gcc以形成一个增量image。
+
+通过docker build指令来生成docker镜像
+docker build -t csphere/centos:7.1 .
+
+https://blog.csdn.net/u012562943/article/details/50463400    Docker学习总结（1）——Docker实战之入门以及Dockerfile（一）  重要重要
+
+生成docker容器
+
+docker run -d -p 2222:22 --name base csphere/centos:7.1
+
+37ac69acf47d501ffc61d8883ae2ba362a132d11e46897212a92b1936e0a0593
+
+参数说明：
+
+-d 后台运行
+-it 前台交互式运行
+-P 22 将宿主机的一个未使用的随机端口映射到容器的22端口
+-p 2222:22 将宿主机的2222端口映射到容器的22端口
+--name base 给容器命名为base
+csphere/centos:7.1 使用这个镜像镜像创建docker容器
+
+
+
+《程序员面试宝典》《剑指offer》
+
+
+
+https://blog.csdn.net/derrantcm/article/details/45330779    《剑指offer》
+
+https://www.cnblogs.com/ik-heu/p/8462025.html#_lab2_0_0   剑指offer第二版面试题-Java描述-持续更新
+
+
+https://blog.csdn.net/derrantcm/article/details/51534498  面试总结
+
+6-2 config-server
+
+
+
+
+
+
+
+20180728
+
+dubbo与springcloud对比与面试 
+https://www.cnblogs.com/fengli9998/p/8599902.html  dubbo与springcloud对比与面试 
+
+
+rabbitMQ
+接下来，当程序开发时，可能不止用到一个队列，可能有订单的队列、消息的队列、任务的队列等等，那么就需要给不同的queue发信息，那么和每一个队列连接的这个概念，就叫Channel
+
+再往下来，当我们开发的时候还有时候会用到这样一种功能，就是当我发送一条消息，需要让几个queue都收到，那么怎么解决这个问题呢，难道我要给每一个queue发送一次消息？那岂不是浪费带宽又浪费资源，我们能想到什么办法呢，当然是我们发送给RabbitMQ服务器一次，然后让RabbitMQ服务器自己解析需要给哪个Queue发，那么Exchange就是干这件事的
+
+但是我们给Exchange发消息，他怎么知道给哪个Queue发呢？这里就用到了RoutingKey和BindingKey
+
+BindingKey是Exchange和Queue绑定的规则描述，这个描述用来解析当Exchange接收到消息时，Exchange接收到的消息会带有RoutingKey这个字段，Exchange就是根据这个RoutingKey和当前Exchange所有绑定的BindingKey做匹配，如果满足要求，就往BindingKey所绑定的Queue发送消息，这样我们就解决了我们向RabbitMQ发送一次消息，可以分发到不同的Queue的过程
+
+ConnectionFactory：与RabbitMQ服务器连接的管理器
+
+Connection：与RabbitMQ服务器的连接
+
+Channel：与Exchange的连接
+
+Exchange：接受消息提供者（生产者）的消息，并根据消息的RoutingKey和Exchange绑定的BindingKey分配消息
+
+Queue：存储消息接收者（消费者）的消息
+
+RoutingKey：指定当前消息被谁接受
+
+BindingKey：指定当前Exchange下，什么样的RoutingKey会被下派到当前绑定的Queue中
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
